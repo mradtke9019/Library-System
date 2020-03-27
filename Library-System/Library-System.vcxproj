@@ -153,6 +153,11 @@
   <ItemGroup>
     <ClCompile Include="Library-System.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Library.db" />
+    <None Include="Queries.sql" />
+    <None Include="Test.sql" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
