@@ -10,39 +10,51 @@
 
 using namespace std;
 
-struct Name {
+class Name {
+private:
 	std::string first;
 	std::string last;
+public:
 };
 
-struct ContactInfo {
+class ContactInfo {
+private:
 	std::string email;
 	long phone;
+public:
 };
 
-struct Author {
+class Author {
+private:
 	int id;
 	Name name;
+public:
 };
 
-struct Member {
+class Member {
+private:
 	int id;
 	Name name;
 	ContactInfo info;
+public:
 };
 
 
-struct Book {
+class Book {
+private:
 	long ISBN;
 	vector<Author> authors;
 	int count;
+public: 
 };
 
 
 struct BookLoan {
+private:
 	Member borrower;
 	Book book;
 	time_t dateBorrowed;
+public:
 };
 
 int main()
