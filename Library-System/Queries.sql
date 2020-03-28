@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS Authors;
 DROP TABLE IF EXISTS Members;
 DROP TABLE IF EXISTS Contributors;
 DROP TABLE IF EXISTS Checkouts;
-
+-- Test comment
 Create Table IF NOT EXISTS Books(
 	ISBN int,
 	Copies int check(Copies > 0),
