@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS Contributors;
 DROP TABLE IF EXISTS Checkouts;
 -- Test comment
 -- Test comment 2
+--Your comment is garbo
 Create Table IF NOT EXISTS Books(
 	ISBN int,
 	Copies int check(Copies > 0),
