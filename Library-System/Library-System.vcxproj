@@ -158,6 +158,17 @@
     <None Include="Queries.sql" />
     <None Include="Test.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Authors.h" />
+    <ClInclude Include="Books.h" />
+    <ClInclude Include="Checkout.h" />
+    <ClInclude Include="Contributors.h" />
+    <ClInclude Include="Members.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Library-System.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -14,7 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Models">
-      <UniqueIdentifier>{1cbdca9e-a1b7-4868-8561-67c185dfeb02}</UniqueIdentifier>
+      <UniqueIdentifier>{35700b34-4b14-40c1-9b00-c5b15bbff17b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -23,14 +23,39 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Library.db">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Queries.sql">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Test.sql">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Library.db">
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Books.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Authors.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Members.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Contributors.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkout.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Library-System.rc">
       <Filter>Resource Files</Filter>
-    </None>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
