@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "Books.h"
+#include "Model.h"
 #include "sqlite3.h"
 #include <vector>
 
@@ -63,7 +64,13 @@ int main()
 	else {
 		std::cout << "Opended database succesfully";
 	}
+
+
 	Book* myBook = new Book(123, 1, "Old man and the sea", "A book about an old man and some sea");
+	//Model* dbModel = new Book(); TODO: Figure out inheritance
+
+
+
 
 	std::cout << "Adding myBook" << std::endl << myBook->getValues() << std::endl;
 	if (AddBook(db, myBook, errMsg) != SQLITE_OK) {

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "Model.h"
 
-class Book {
+class Book : Model {
 private:
 	long ISBN;
 	int copies;
