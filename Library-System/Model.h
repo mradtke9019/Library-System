@@ -1,12 +1,13 @@
-
+#pragma once
 
 class Model {
 private:
 public:
+	
 	// Returns the name of the table
-	static std::string getTableName() {};
+	virtual std::string getTableName() = 0;
 	// Returns the columns names of the table
-	static std::string getColumns() {};
+	virtual std::string getColumns() = 0;
 	// Returns the values of the current record
-	std::string getValues() {};
+	virtual std::string getValues() = 0;
 };

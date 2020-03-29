@@ -1,9 +1,8 @@
 #include "sqlite3.h"
-#include "sqlite3.c"
 #include "Model.h"
 #include <iostream>
 
-class Sqlite : public sqlite3 {
+class Sqlite  {
 private:
 	sqlite3* db;
 	char* errMsg;
@@ -16,7 +15,7 @@ private:
 public:
 	Sqlite(std::string dbName) 
 	{
-		char* errMsg = 0;
+		this->errMsg = 0;
 		int rc;
 
 		rc = sqlite3_open(dbName.c_str(), &db);

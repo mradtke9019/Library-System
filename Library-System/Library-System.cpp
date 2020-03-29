@@ -22,57 +22,15 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 	return 0;
 }
 
-//std::string InsertStatement(std::string table, std::string columns, std::string values)
-//{
-//	return  "Insert Into " + table + columns + "\nValues " + values + ";";
-//}
-
-// Add Book to database and return the status of the insert.
-// Return the status of the transaction
-//int AddBook(sqlite3* db, Book* book, char* errMsg) 
-//{
-//	return sqlite3_exec(db,InsertStatement("Books",book->getColumns(), book->getValues()).c_str(), callback, 0, &errMsg);
-//}
-
-void SelectBook(sqlite3* db, std::string sql) 
-{
-
-}
-
-int Add(void* obj)
-{
-
-}
-
-
-// Iterate over each book and add to database
-//int AddBooks(sqlite3* db, vector<Book> books, char errMsg) 
-//{
-//	//foreach book in books -> AddBook(book)
-//
-//	return 0;
-//}
-
 
 int main()
 {
 	Sqlite* db = new Sqlite("Library.db");
 
 	Book* myBook = new Book(12, 1, "Old man and the sea", "A book about an old man and some sea");
-	Model* dbModel = new Book(1212312, 1, "Old man and the sea", "A book about an old man and some sea");// TODO: Figure out inheritance
+	Model* dbModel = new Book(1212312, 1, "Old man and the sea", "A book about an old man and some sea");
 
 
-
-	std::cout << "Adding myBook" << std::endl << myBook->getValues() << std::endl;
-	db->Add(myBook, callback);
-	
-	//if (AddBook(db, myBook, errMsg) != SQLITE_OK) {
-	//	fprintf(stderr, "SQL error: %s\n", errMsg);
-	//	sqlite3_free(errMsg);
-	//}
-	//else {
-	//	fprintf(stdout, "Records created successfully\n");
-	//}
-
-	//sqlite3_close(db);
+	std::cout << "Adding dbModel" << std::endl << dbModel->getValues() << std::endl;
+	db->Add(dbModel, callback);
 }
