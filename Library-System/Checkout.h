@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "Model.h"
 
-class Checkout {
+class Checkout : Model {
 private:
 	long BookISBN;
 	int memberId;

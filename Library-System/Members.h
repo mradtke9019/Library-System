@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "Model.h"
 
-class Members {
+class Members : Model {
 private: 
 	int Id;
 	std::string name;

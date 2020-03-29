@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "Model.h"
 
-class Contributors {
+class Contributors : Model {
 private:
 	long BookISBN;
 	int authorId;

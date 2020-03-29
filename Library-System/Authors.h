@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-class Author {
+#include "Model.h"
+
+class Author : Model {
 private:
 	int Id;
 	std::string name;
