@@ -21,20 +21,23 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 	return 0;
 }
 
+std::string InsertStatement(std::string table, std::string columns, std::string values)
+{
+	return  "Insert Into " + table + columns + "\nValues " + values + ";";
+}
+
 // Add Book to database and return the status of the insert.
 // Return the status of the transaction
 int AddBook(sqlite3* db, Book* book, char* errMsg) 
 {
-	std::string sql;
-	sql = "Insert Into Books " + book->getColumns();
-	sql += "Values " + book->getValues() + ";";
-	return sqlite3_exec(db,sql.c_str(), callback, 0, &errMsg);
+	return sqlite3_exec(db,InsertStatement("Books",book->getColumns(), book->getValues()).c_str(), callback, 0, &errMsg);
 }
 
 void SelectBook(sqlite3* db, std::string sql) 
 {
 
 }
+
 
 // Iterate over each book and add to database
 //int AddBooks(sqlite3* db, vector<Book> books, char errMsg) 
@@ -60,7 +63,7 @@ int main()
 	else {
 		std::cout << "Opended database succesfully";
 	}
-	Book* myBook = new Book(1123, 1, "Old man and the sea", "A book about an old man and some sea");
+	Book* myBook = new Book(123, 1, "Old man and the sea", "A book about an old man and some sea");
 
 	std::cout << "Adding myBook" << std::endl << myBook->getValues() << std::endl;
 	if (AddBook(db, myBook, errMsg) != SQLITE_OK) {
