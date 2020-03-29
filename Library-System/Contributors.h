@@ -2,18 +2,20 @@
 #include <string>
 #include "Model.h"
 
-class Contributors : Model {
+class Contributor : public Model {
 private:
 	long BookISBN;
 	int authorId;
 public:
-	Contributors(long isbn, int aId)
+	Contributor(long isbn, int aId)
 	{
 		BookISBN = isbn;
 		authorId = aId;
 	};
 	long getBookISBN() { return BookISBN; }
 	int getAuthorId() { return authorId; }
-	std::string static getColumns() { return "(BookISBN, AuthorId)"; };
+
+	std::string getTableName() { return "Contributors"; };
+	std::string getColumns() { return "(BookISBN, AuthorId)"; };
 	std::string getValues() { return "(" + std::to_string(BookISBN) + ',' + std::to_string(authorId) + "')"; };
 };

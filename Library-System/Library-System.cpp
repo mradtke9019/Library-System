@@ -6,6 +6,7 @@
 #include "Books.h"
 #include "Model.h"
 #include "Sqlite.h"
+#include "Authors.h"
 #include <vector>
 
 //Callback function provides us a way to look obtain results from select statements
@@ -29,8 +30,7 @@ int main()
 
 	Book* myBook = new Book(12, 1, "Old man and the sea", "A book about an old man and some sea");
 	Model* dbModel = new Book(1212312, 1, "Old man and the sea", "A book about an old man and some sea");
+	Author* a = new Author(1, "Matt R", "NULL", "NULL");
 
-
-	std::cout << "Adding dbModel" << std::endl << dbModel->getValues() << std::endl;
-	db->Add(dbModel, callback);
+	db->Add(a, callback);
 }

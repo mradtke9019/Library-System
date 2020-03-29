@@ -2,7 +2,7 @@
 #include <string>
 #include "Model.h"
 
-class Checkout : Model {
+class Checkout : public Model {
 private:
 	long BookISBN;
 	int memberId;

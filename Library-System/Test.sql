@@ -1,1 +1,1 @@
-Select * From Books
+Select * From Authors

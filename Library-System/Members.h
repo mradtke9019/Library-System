@@ -2,7 +2,7 @@
 #include <string>
 #include "Model.h"
 
-class Members : Model {
+class Member : public Model {
 private: 
 	int Id;
 	std::string name;
@@ -11,7 +11,7 @@ private:
 	std::string phone;
 
 public:
-	Members(int id, std::string Name, std::string Address, std::string Email, std::string Phone) {
+	Member(int id, std::string Name, std::string Address, std::string Email, std::string Phone) {
 		Id = id;
 		name = Name;
 		address = Address;
@@ -23,6 +23,8 @@ public:
 	std::string getAddress() { return address; };
 	std::string getEmail() { return email; };
 	std::string getPhone() { return phone; };
-	std::string static getColumns() { return "(Id, Name, Address, Email, Phone)"; };
-	std::string getValues() { return "(" + std::to_string(Id) + ',' + name+ ",'" + address + "','" + email + "," + phone + "')"; };
+
+	std::string getTableName() { return "Members"; };
+	std::string getColumns() { return "(Id, Name, Address, Email, Phone)"; };
+	std::string getValues() { return "(" + std::to_string(Id) + ",'" + name+ "','" + address + "','" + email + "','" + phone + "')"; };
 };
