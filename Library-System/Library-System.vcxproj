@@ -167,6 +167,7 @@
     <ClInclude Include="Contributors.h" />
     <ClInclude Include="Members.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="Sqlite.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
   </ItemGroup>

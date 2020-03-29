@@ -64,5 +64,8 @@
     <ClInclude Include="Model.h">
       <Filter>Models</Filter>
     </ClInclude>
+    <ClInclude Include="Sqlite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

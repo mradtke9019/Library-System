@@ -2,7 +2,7 @@
 #include <string>
 #include "Model.h"
 
-class Book : Model {
+class Book : public Model {
 private:
 	long ISBN;
 	int copies;
@@ -19,7 +19,9 @@ public:
 	int getCopies() { return copies; };
 	std::string getTitle() { return title; };
 	std::string getSummary() { return summary; };
-	std::string static getColumns() { return "(ISBN, Copies, Title, Summary)"; };
+
+	static std::string getTableName() { return "Books"; };
+	static std::string getColumns() { return "(ISBN, Copies, Title, Summary)"; };
 	std::string getValues() { return "(" + std::to_string(ISBN) + ',' + std::to_string(copies) + ",'" + title + "','" + summary + "')"; };
 };
 
