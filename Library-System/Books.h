@@ -22,5 +22,7 @@ public:
 	std::string getTableName() { return "Books"; };
 	std::string getColumns() { return "(ISBN, Copies, Title, Summary)"; };
 	std::string getValues() { return "(" + std::to_string(ISBN) + ',' + std::to_string(copies) + ",'" + title + "','" + summary + "')"; };
+	std::string getPrimaryKey() { return "ISBN"; };
+	std::string getPrimaryKeyValue() { return std::to_string(ISBN); };
 };
 

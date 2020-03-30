@@ -9,6 +9,7 @@
 #include "Authors.h"
 #include <vector>
 
+
 //Callback function provides us a way to look obtain results from select statements
 static int callback(void* data, int argc, char** argv, char** azColName) 
 {

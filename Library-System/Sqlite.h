@@ -11,6 +11,11 @@ private:
 	{
 		return  "Insert Into " + table + columns + "\nValues " + values + ";";
 	}
+	// TODO: Implement
+	std::string DeleteStatement(std::string table)
+	{
+		return  "Delete From " + table + " where " +;
+	}
 
 public:
 	Sqlite(std::string dbName) 
@@ -35,5 +40,15 @@ public:
 	int Add(Model* item, void* callback)
 	{
 		return sqlite3_exec(db, InsertStatement(item->getTableName(), item->getColumns(), item->getValues()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+	}
+
+	int Remove(Model* item, void* callback)
+	{
+
+	}
+
+	int Execute(std::string sql, void* callback) 
+	{
+		return sqlite3_exec(db, sql.c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 };

@@ -10,4 +10,7 @@ public:
 	virtual std::string getColumns() = 0;
 	// Returns the values of the current record
 	virtual std::string getValues() = 0;
+	//Gets the primary key of the object
+	virtual std::string getPrimaryKey() = 0;
+	virtual std::string getPrimaryKeyValue() = 0;
 };
