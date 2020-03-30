@@ -14,7 +14,7 @@
 static int callback(void* data, int argc, char** argv, char** azColName) 
 {
 	int i;
-	fprintf(stderr, "%s: ", (const char*)data);
+	//fprintf(stderr, "%s: ", (const char*)data);
 
 	for (i = 0; i < argc; i++) {
 		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
@@ -28,10 +28,10 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 int main()
 {
 	Sqlite* db = new Sqlite("Library.db");
-
+	
 	Book* myBook = new Book(12, 1, "Old man and the sea", "A book about an old man and some sea");
 	Model* dbModel = new Book(1212312, 1, "Old man and the sea", "A book about an old man and some sea");
 	Author* a = new Author(1, "Matt R", "NULL", "NULL");
-
-	db->Add(a, callback);
+	db->Select(Book::getTableName(), "", callback);
+	//db->Add(a, callback);
 }

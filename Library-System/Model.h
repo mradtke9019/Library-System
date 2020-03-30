@@ -5,9 +5,9 @@ private:
 public:
 	
 	// Returns the name of the table
-	virtual std::string getTableName() = 0;
+	static std::string getTableName() {};
 	// Returns the columns names of the table
-	virtual std::string getColumns() = 0;
+	static std::string getColumns() {};
 	// Returns the values of the current record
 	virtual std::string getValues() = 0;
 	//Gets the primary key of the object

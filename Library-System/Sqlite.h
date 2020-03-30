@@ -14,8 +14,9 @@ private:
 	// TODO: Implement
 	std::string DeleteStatement(std::string table)
 	{
-		return  "Delete From " + table + " where " +;
+		return  "Delete From " + table + " where ";
 	}
+
 
 public:
 	Sqlite(std::string dbName) 
@@ -45,6 +46,13 @@ public:
 	int Remove(Model* item, void* callback)
 	{
 
+	}
+
+	Model* Select(std::string table, std::string condition, void* callback)
+	{
+		int rc = sqlite3_exec(db, std::string("Select * From Books").c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		std::cout << rc;
+		return nullptr;
 	}
 
 	int Execute(std::string sql, void* callback) 

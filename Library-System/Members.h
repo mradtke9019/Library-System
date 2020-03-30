@@ -24,8 +24,8 @@ public:
 	std::string getEmail() { return email; };
 	std::string getPhone() { return phone; };
 
-	std::string getTableName() { return "Members"; };
-	std::string getColumns() { return "(Id, Name, Address, Email, Phone)"; };
+	static std::string getTableName() { return "Members"; };
+	static std::string getColumns() { return "(Id, Name, Address, Email, Phone)"; };
 	std::string getValues() { return "(" + std::to_string(Id) + ",'" + name+ "','" + address + "','" + email + "','" + phone + "')"; };
 	std::string getPrimaryKey() { return "Id"; };
 	std::string getPrimaryKeyValue() { return std::to_string(Id); };

@@ -15,8 +15,8 @@ public:
 	long getBookISBN() { return BookISBN; }
 	int getAuthorId() { return authorId; }
 
-	std::string getTableName() { return "Contributors"; };
-	std::string getColumns() { return "(BookISBN, AuthorId)"; };
+	static std::string getTableName() { return "Contributors"; };
+	static std::string getColumns() { return "(BookISBN, AuthorId)"; };
 	std::string getValues() { return "(" + std::to_string(BookISBN) + ',' + std::to_string(authorId) + "')"; };
 	std::string getPrimaryKey() { return "BookISBN"; };
 	std::string getPrimaryKeyValue() { return std::to_string(BookISBN); };
