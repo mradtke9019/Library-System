@@ -1,6 +1,8 @@
 #include "sqlite3.h"
 #include "Model.h"
 #include <iostream>
+#include <vector>
+
 
 class Sqlite  {
 private:
@@ -15,6 +17,11 @@ private:
 	std::string DeleteStatement(std::string table)
 	{
 		return  "Delete From " + table + " where ";
+	}
+	
+	std::string SelectStatement(std::string table, std::string condition)
+	{
+		return "Select * From " + table + (!condition.empty() ? " where "  + condition : "");
 	}
 
 
@@ -48,11 +55,11 @@ public:
 
 	}
 
-	Model* Select(std::string table, std::string condition, void* callback)
+	// Attempt to select data and place it in our store
+	int Select(std::vector<Model*>* store,std::string table, std::string condition, void* callback)
 	{
-		int rc = sqlite3_exec(db, std::string("Select * From Books").c_str(), (sqlite3_callback)callback, 0, &errMsg);
-		std::cout << rc;
-		return nullptr;
+		int rc = sqlite3_exec(db, SelectStatement(table, condition).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return rc;
 	}
 
 	int Execute(std::string sql, void* callback) 
