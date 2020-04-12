@@ -32,6 +32,9 @@ int main()
 	Book* myBook = new Book(12, 1, "Old man and the sea", "A book about an old man and some sea");
 	Model* dbModel = new Book(1212312, 1, "Old man and the sea", "A book about an old man and some sea");
 	Author* a = new Author(1, "Matt R", "NULL", "NULL");
+
+	db->Add(a, callback);
+
 	std::vector<Model*> books;
 	if (db->Select(&books, Book::getTableName(), std::string(), callback))
 	{
