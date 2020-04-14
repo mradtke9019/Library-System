@@ -4,6 +4,7 @@
 #include "sqlite3.h"
 #include <vector>
 #include <fstream>
+#include <Windows.h>
 
 /*
 Goals
@@ -69,9 +70,9 @@ std::vector<Model*> models;
 std::vector<column>* columns =		new std::vector<column>();
 std::vector<std::string>* tableNames =	new std::vector<std::string>();
 
-bool create(Model model) {
+bool create(Model model, std::string path) {
 	std::ofstream myfile;
-	myfile.open(model.table + ".h");
+	myfile.open(path + model.table + ".h");
 	if (myfile.is_open()) {
 		std::cout << "File is open\n";
 
@@ -132,7 +133,16 @@ void dbstuff() {
 int main()
 {
 	dbstuff();
+	std::string path = "../Models";
+	if (CreateDirectory(path.c_str(), NULL) ||
+		ERROR_ALREADY_EXISTS == GetLastError())
+	{
 
-	for (auto m: models) 
-		create(*m);
+		for (auto m : models)
+			create(*m, "../Models/");
+	}
+	else
+	{
+		std::cout << "Unable to get to " << path;
+	}
 }
