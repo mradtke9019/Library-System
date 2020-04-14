@@ -16,18 +16,26 @@ Add custom inheritcance for every table class created
 Create and write file
 
 */
+class column {
+public: 
+	column(std::string t, std::string n) {
+		type = t; name = n;
+	}
+	std::string type;
+	std::string name;
+};
 
 class Model {
 public: 
 	Model() {
 
 	};
-	Model(std::string t, std::vector<std::string> c) {
+	Model(std::string t, std::vector<column> c) {
 		table = t;
 		columns = c;
 	};
 	std::string table;
-	std::vector<std::string> columns;
+	std::vector<column> columns;
 	std::string toString() {
 		std::string temp = "";
 		temp += "#pragma once\n";
@@ -40,8 +48,17 @@ public:
 		temp += "\t{\n";
 		temp += "\t\n";
 		temp += "\t};\n";
-		for (auto x : columns) 
-			temp += "\tstd::string " + x + ";\n" ;
+		for (auto x : columns) {
+			if (x.type.find("Integer") == 0 || x.type.find("int") == 0) {
+				temp += "\tint " + x.name + ";\n";
+			}
+			else if (x.type.find("DateTime") == 0) {
+				temp += "\ttime_t " + x.name + ";\n";
+			}
+			else {
+				temp += "\tstd::string " + x.name + ";\n";
+			}
+		}
 
 		temp += "};";
 		return temp;
@@ -49,7 +66,7 @@ public:
 };
 
 std::vector<Model*> models;
-std::vector<std::string>* columns =		new std::vector<std::string>();
+std::vector<column>* columns =		new std::vector<column>();
 std::vector<std::string>* tableNames =	new std::vector<std::string>();
 
 bool create(Model model) {
@@ -79,7 +96,7 @@ static int tableCallback(void* data, int argc, char** argv, char** azColName)
 
 static int columnCallback(void* data, int argc, char** argv, char** azColName)
 {
-	columns->push_back(argv[1]);
+	columns->push_back(column(argv[2],argv[1]));
 	return 0;
 }
 
