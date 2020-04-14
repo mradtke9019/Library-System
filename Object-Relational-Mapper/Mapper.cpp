@@ -22,6 +22,10 @@ public:
 	Model() {
 
 	};
+	Model(std::string t, std::vector<std::string> c) {
+		table = t;
+		columns = c;
+	};
 	std::string table;
 	std::vector<std::string> columns;
 	std::string toString() {
@@ -44,7 +48,9 @@ public:
 	};
 };
 
-std::vector<Model> models;
+std::vector<Model*> models;
+std::vector<std::string>* columns =		new std::vector<std::string>();
+std::vector<std::string>* tableNames =	new std::vector<std::string>();
 
 bool create(Model model) {
 	std::ofstream myfile;
@@ -65,16 +71,15 @@ bool create(Model model) {
 }
 
 
-static int callback(void* data, int argc, char** argv, char** azColName)
+static int tableCallback(void* data, int argc, char** argv, char** azColName)
 {
-	int i;
-	//fprintf(stderr, "%s: ", (const char*)data);
+	tableNames->push_back(argv[0]);
+	return 0;
+}
 
-	for (i = 0; i < argc; i++) {
-		printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
-	}
-
-	printf("\n");
+static int columnCallback(void* data, int argc, char** argv, char** azColName)
+{
+	columns->push_back(argv[1]);
 	return 0;
 }
 
@@ -90,8 +95,17 @@ void dbstuff() {
 		std::cout << "Opened database succesfully\n";
 	}
 
-	std::string tableStmt = "SELECT name FROM sqlite_master WHERE type='table'";
-	rc = sqlite3_exec(db, tableStmt.c_str(), (sqlite3_callback)callback, 0, &errMsg);
+	rc = sqlite3_exec(db, "SELECT name FROM sqlite_master WHERE type='table'", (sqlite3_callback)tableCallback, 0, &errMsg);
+
+	for (auto table : *tableNames)
+	{
+		std::cout << "Getting columns for " << table << "\n";
+		rc = sqlite3_exec(db, std::string("Pragma table_info(" + table +")").c_str(), (sqlite3_callback)columnCallback, 0, &errMsg);
+
+		models.push_back(new Model(table, *columns));
+		columns->clear();
+	}
+
 	if (rc) {
 		std::cout << "Failed\n";
 	}
@@ -103,5 +117,5 @@ int main()
 	dbstuff();
 
 	for (auto m: models) 
-		create(m);
+		create(*m);
 }
