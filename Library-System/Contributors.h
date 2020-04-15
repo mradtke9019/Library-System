@@ -1,23 +1,24 @@
 #pragma once
-#include <string>
 #include "Model.h"
+#include <vector>
+#include <string>
 
-class Contributor : public Model {
+class Contributors :  public Model {
 private:
-	long BookISBN;
-	int authorId;
 public:
-	Contributor(long isbn, int aId)
+	Contributors()
 	{
-		BookISBN = isbn;
-		authorId = aId;
+	
 	};
-	long getBookISBN() { return BookISBN; }
-	int getAuthorId() { return authorId; }
-
-	static std::string getTableName() { return "Contributors"; };
-	static std::string getColumns() { return "(BookISBN, AuthorId)"; };
-	std::string getValues() { return "(" + std::to_string(BookISBN) + ',' + std::to_string(authorId) + "')"; };
-	std::string getPrimaryKey() { return "BookISBN"; };
-	std::string getPrimaryKeyValue() { return std::to_string(BookISBN); };
+	std::string Table() { return "Contributors"; }
+	int BookISBN;
+	int AuthorId;
+	std::vector<std::string> Columns()
+	{
+		return std::vector<std::string>({"BookISBN","AuthorId"});
+	}
+	std::vector<std::string> Values()
+	{
+		return std::vector<std::string>({std::to_string(BookISBN),std::to_string(AuthorId)});
+	}
 };

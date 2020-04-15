@@ -40,21 +40,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Books.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Authors.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Members.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Contributors.h">
-      <Filter>Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Checkout.h">
-      <Filter>Models</Filter>
-    </ClInclude>
     <ClInclude Include="sqlite3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,6 +51,21 @@
     </ClInclude>
     <ClInclude Include="Sqlite.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkouts.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Contributors.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Authors.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Books.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Members.h">
+      <Filter>Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

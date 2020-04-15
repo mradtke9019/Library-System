@@ -163,7 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Authors.h" />
     <ClInclude Include="Books.h" />
-    <ClInclude Include="Checkout.h" />
+    <ClInclude Include="Checkouts.h" />
     <ClInclude Include="Contributors.h" />
     <ClInclude Include="Members.h" />
     <ClInclude Include="Model.h" />
