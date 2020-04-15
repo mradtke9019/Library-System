@@ -40,7 +40,8 @@ public:
 	std::string toString() {
 		std::string temp = "";
 		temp += "#pragma once\n";
-		temp += "#include \"Model.h\"\n"; 
+		temp += "#include \"Model.h\"\n";
+		temp += "#include <vector>\n";
 		temp += "class " + table + " : " + " public Model {\n";
 		temp += "private:\n";
 
@@ -49,6 +50,7 @@ public:
 		temp += "\t{\n";
 		temp += "\t\n";
 		temp += "\t};\n";
+		// Create fields that map to columns for class
 		for (auto x : columns) {
 			if (x.type.find("Integer") == 0 || x.type.find("int") == 0) {
 				temp += "\tint " + x.name + ";\n";
@@ -61,6 +63,33 @@ public:
 			}
 		}
 
+		// Create function to get names of all columns for this db model object
+		temp += "\tstd::vector<std::string> Columns()\n";
+		temp += "\t{\n";
+		temp += "\t\treturn std::vector<std::string>({";
+		for (auto x : columns) {
+			temp += "\"" + x.name + "\"";
+			if(x.name.compare(columns[columns.size()- 1].name))
+				temp += ",";
+		}
+		temp += ")};\n\t}\n";
+
+		//Create function to get the values of current db model object
+		temp += "\tstd::vector<std::string> Values()\n";
+		temp += "\t{\n";
+		temp += "\t\treturn std::vector<std::string>({";
+		for (auto x : columns) {
+			if (x.type.find("Integer") == 0 || x.type.find("int") == 0 || x.type.find("DateTime") == 0)
+				temp += "std::to_string(" + x.name + ")";
+			else
+				temp += x.name;
+
+
+			if (x.name.compare(columns[columns.size() - 1].name))
+				temp += ",";
+		}
+		temp += ")};\n\t}\n";
+
 		temp += "};";
 		return temp;
 	};
@@ -72,16 +101,17 @@ std::vector<std::string>* tableNames =	new std::vector<std::string>();
 
 bool create(Model model, std::string path) {
 	std::ofstream myfile;
-	myfile.open(path + model.table + ".h");
+	std::string fileName = path + model.table + ".h";
+	myfile.open(fileName);
 	if (myfile.is_open()) {
-		std::cout << "File is open\n";
+		std::cout << "Opened file " << fileName << ":";
 
 		myfile << model.toString();
 
 		myfile.close();
+		std::cout << "\tCreated file " << fileName << "\n";
 	}
 	else {
-
 		return false;
 	}
 

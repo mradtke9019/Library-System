@@ -13,6 +13,7 @@ private:
 	{
 		return  "Insert Into " + table + columns + "\nValues " + values + ";";
 	}
+
 	// TODO: Implement
 	std::string DeleteStatement(std::string table)
 	{
@@ -36,7 +37,7 @@ public:
 			std::cout << "Cant open database" << sqlite3_errmsg(db);
 		}
 		else {
-			std::cout << "Opended database succesfully";
+			std::cout << "Opened database succesfully";
 		}
 	}
 
