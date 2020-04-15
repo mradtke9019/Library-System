@@ -17,14 +17,12 @@ private:
 	std::string InsertStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values)
 	{
 		std::string col = "(", vals = "(";
-		for (std::vector<std::string>::iterator c = columns.begin(); c != columns.end(); ++c) 
-		{
-			col += *c + ",";
-		}
-		for (std::vector<std::string>::iterator v = values.begin(); v != values.end(); ++v)
-		{
-			vals += *v + ",";
-		}
+		std::vector<std::string>::iterator c = columns.begin(), v = values.begin();
+
+		col += *c; vals += *v;
+
+		for (; c != columns.end(); ++c) { col += "," + *c; }
+		for (; v != values.end(); ++v) { vals += "," + *v; }
 
 		col += ")"; vals += ")";
 
