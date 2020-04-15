@@ -22,6 +22,6 @@ public:
 	}
 	std::vector<std::string> Values()
 	{
-		return std::vector<std::string>({std::to_string(Id),Name,Address,Email,Phone});
+		return std::vector<std::string>({std::to_string(Id),"'" + Name + "'","'" + Address + "'","'" + Email + "'","'" + Phone + "'"});
 	}
 };

@@ -85,7 +85,7 @@ public:
 			if (x.type.find("Integer") == 0 || x.type.find("int") == 0 || x.type.find("DateTime") == 0)
 				temp += "std::to_string(" + x.name + ")";
 			else
-				temp += x.name;
+				temp += "\"'\" + " + x.name + " + \"'\"";
 
 
 			if (x.name.compare(columns[columns.size() - 1].name))

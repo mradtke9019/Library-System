@@ -21,6 +21,6 @@ public:
 	}
 	std::vector<std::string> Values()
 	{
-		return std::vector<std::string>({std::to_string(ISBN),std::to_string(Copies),Title,Summary});
+		return std::vector<std::string>({std::to_string(ISBN),std::to_string(Copies),"'" + Title + "'","'" + Summary + "'"});
 	}
 };
