@@ -1,8 +1,6 @@
 # Library-System
 Library Checkout system
 
-# Library-System
-
 ## Goals
 This project is a C++ implementation of a library system that seeks to touch many areas of computer science and programming.
 The goal is to create an interface between a sqlite database and C++. One part of the project creates C++ class files that map
