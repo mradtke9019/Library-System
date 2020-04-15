@@ -14,6 +14,23 @@ private:
 		return  "Insert Into " + table + columns + "\nValues " + values + ";";
 	}
 
+	std::string InsertStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values)
+	{
+		std::string col = "(", vals = "(";
+		for (std::vector<std::string>::iterator c = columns.begin(); c != columns.end(); ++c) 
+		{
+			col += *c + ",";
+		}
+		for (std::vector<std::string>::iterator v = values.begin(); v != values.end(); ++v)
+		{
+			col += *v + ",";
+		}
+
+		col += ")"; vals += ")";
+
+		return  "Insert Into " + table + col + "\nValues " + vals + ";";
+	}
+
 	// TODO: Implement
 	std::string DeleteStatement(std::string table)
 	{
