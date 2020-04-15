@@ -23,12 +23,12 @@ private:
 		}
 		for (std::vector<std::string>::iterator v = values.begin(); v != values.end(); ++v)
 		{
-			col += *v + ",";
+			vals += *v + ",";
 		}
 
 		col += ")"; vals += ")";
 
-		return  "Insert Into " + table + col + "\nValues " + vals + ";";
+		return  "Insert Into " + table + " " + col + "\nValues " + vals + ";";
 	}
 
 	// TODO: Implement
@@ -65,7 +65,7 @@ public:
 	// Add the item to the database
 	int Add(Model* item, void* callback)
 	{
-		return sqlite3_exec(db, InsertStatement(item->getTableName(), item->getColumns(), item->getValues()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return sqlite3_exec(db, InsertStatement(item->Table(), item->Columns(), item->Values()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
 	int Remove(Model* item, void* callback)

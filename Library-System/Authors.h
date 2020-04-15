@@ -1,28 +1,26 @@
 #pragma once
-#include <string>
 #include "Model.h"
+#include <vector>
+#include <string>
 
-class Author : public Model {
+class Authors :  public Model {
 private:
-	int Id;
-	std::string name;
-	std::string address;
-	std::string phone;
 public:
-	Author (int id, std::string Name, std::string Address, std::string Phone) {
-		Id = id;
-		name = Name;
-		address = Address;
-		phone = Phone;
+	Authors()
+	{
+	
+	};
+	std::string Table() { return "Authors"; }
+	int Id;
+	std::string Name;
+	std::string Address;
+	std::string Phone;
+	std::vector<std::string> Columns()
+	{
+		return std::vector<std::string>({"Id","Name","Address","Phone"});
 	}
-	int getId() { return Id; };
-	std::string getName() { return name; };
-	std::string getAddress() { return address; };
-	std::string getPhone() { return phone; };
-
-	static std::string getTableName() { return "Authors"; };
-	static std::string getColumns() { return "(Id, Name, Address, Phone)"; };
-	std::string getValues() { return "(" + std::to_string(Id) + ",'" + name + "','" + address + "','" + phone + "')"; };
-	std::string getPrimaryKey() { return "Id"; };
-	std::string getPrimaryKeyValue() { return std::to_string(Id); };
+	std::vector<std::string> Values()
+	{
+		return std::vector<std::string>({std::to_string(Id),Name,Address,Phone});
+	}
 };

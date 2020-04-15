@@ -42,6 +42,7 @@ public:
 		temp += "#pragma once\n";
 		temp += "#include \"Model.h\"\n";
 		temp += "#include <vector>\n";
+		temp += "#include <string>\n\n";
 		temp += "class " + table + " : " + " public Model {\n";
 		temp += "private:\n";
 
@@ -50,6 +51,8 @@ public:
 		temp += "\t{\n";
 		temp += "\t\n";
 		temp += "\t};\n";
+
+		temp += "\tstd::string Table() { return \"" + table + "\"; }\n";
 		// Create fields that map to columns for class
 		for (auto x : columns) {
 			if (x.type.find("Integer") == 0 || x.type.find("int") == 0) {
@@ -72,7 +75,7 @@ public:
 			if(x.name.compare(columns[columns.size()- 1].name))
 				temp += ",";
 		}
-		temp += ")};\n\t}\n";
+		temp += "});\n\t}\n";
 
 		//Create function to get the values of current db model object
 		temp += "\tstd::vector<std::string> Values()\n";
@@ -88,7 +91,7 @@ public:
 			if (x.name.compare(columns[columns.size() - 1].name))
 				temp += ",";
 		}
-		temp += ")};\n\t}\n";
+		temp += "});\n\t}\n";
 
 		temp += "};";
 		return temp;
