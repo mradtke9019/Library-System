@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include <string>
 #include <exception>
 
 class SqlException : std::exception {

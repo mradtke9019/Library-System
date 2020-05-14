@@ -166,13 +166,13 @@ void dbstuff() {
 int main()
 {
 	dbstuff();
-	std::string path = "../Models";
+	std::string path = "../Library-System/";
 	if (CreateDirectory(path.c_str(), NULL) ||
 		ERROR_ALREADY_EXISTS == GetLastError())
 	{
 
 		for (auto m : models)
-			create(*m, "../Models/");
+			create(*m, path);
 	}
 	else
 	{

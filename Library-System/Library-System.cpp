@@ -40,9 +40,11 @@ int main()
 
 	//Author* a = new Author(1, "Matt R", "NULL", "NULL");
 
-	db->Add(b, callback);
+	//db->Add(b, callback);
 
-	std::vector<Model*> books;
+	std::vector<Model*>* books = db->Select("Books", "", callback);
+
+	std::cout << books->size();
 	//if (db->Select(&books, Book::getTableName(), std::string(), callback))
 	//{
 	//	std::cout << db->getErrorMessage() << std::endl;

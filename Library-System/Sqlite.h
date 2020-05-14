@@ -78,6 +78,14 @@ public:
 		return rc;
 	}
 
+
+	// Attempt to select data and place it in our store
+	std::vector<Model*>* Select(std::string table, std::string condition, void* callback)
+	{
+		int rc = sqlite3_exec(db, SelectStatement(table, condition).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return new std::vector < Model*>();
+	}
+
 	int Execute(std::string sql, void* callback) 
 	{
 		return sqlite3_exec(db, sql.c_str(), (sqlite3_callback)callback, 0, &errMsg);
