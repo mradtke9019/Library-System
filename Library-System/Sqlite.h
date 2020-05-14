@@ -61,7 +61,7 @@ public:
 	char* getErrorMessage() { return errMsg; };
 
 	// Add the item to the database
-	int Add(Model* item, void* callback)
+	int Add(Model* item, void* callback = NULL)
 	{
 		return sqlite3_exec(db, InsertStatement(item->Table(), item->Columns(), item->Values()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
