@@ -10,6 +10,7 @@ public:
 	virtual std::vector<std::string> Columns() = 0;
 	// Returns the values of the current record
 	virtual std::vector<std::string> Values() = 0;
+	//std::string Id() { return Columns()[0]; }
 	
 	//// Returns the name of the table
 	//virtual std::string getTableName() = 0;

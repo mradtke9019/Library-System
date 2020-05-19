@@ -2,6 +2,7 @@
 #include "Model.h"
 #include <iostream>
 #include <vector>
+#include "SqlException.h"
 
 
 class Sqlite  {
@@ -52,7 +53,7 @@ public:
 			std::cout << "Cant open database" << sqlite3_errmsg(db);
 		}
 		else {
-			std::cout << "Opened database succesfully";
+			std::cout << "Opened database succesfully\n";
 		}
 	}
 
@@ -72,19 +73,16 @@ public:
 	}
 
 	// Attempt to select data and place it in our store
-	int Select(std::vector<Model*>* store,std::string table, std::string condition, void* callback)
+	template <typename T>
+	std::vector<T*>* Select(std::string table, std::string condition, void* callback) 
 	{
-		int rc = sqlite3_exec(db, SelectStatement(table, condition).c_str(), (sqlite3_callback)callback, 0, &errMsg);
-		return rc;
+		std::vector <T*>* data = new std::vector <T*>();
+		int rc = sqlite3_exec(db, SelectStatement(table, condition).c_str(), (sqlite3_callback)callback, data, &errMsg);
+		if (rc) 
+			throw SqlException(std::string(errMsg));
+		return data;
 	}
 
-
-	// Attempt to select data and place it in our store
-	std::vector<Model*>* Select(std::string table, std::string condition, void* callback)
-	{
-		int rc = sqlite3_exec(db, SelectStatement(table, condition).c_str(), (sqlite3_callback)callback, 0, &errMsg);
-		return new std::vector < Model*>();
-	}
 
 	int Execute(std::string sql, void* callback) 
 	{

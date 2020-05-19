@@ -23,4 +23,16 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(ISBN),std::to_string(Copies),"'" + Title + "'","'" + Summary + "'"});
 	}
+	static int callback(void* data, int argc, char** argv, char** azColName)
+	{
+		std::vector<Books*>* BooksList = static_cast<std::vector<Books*>*>(data);
+		Books* myBooks= new Books();
+		myBooks->ISBN = (atoi)(argv[0]);
+		myBooks->Copies = (atoi)(argv[1]);
+		myBooks->Title = (std::string)(argv[2]);
+		myBooks->Summary = (std::string)(argv[3]);
+
+		BooksList->push_back(myBooks);
+		return 0;
+	}
 };

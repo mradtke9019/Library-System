@@ -21,4 +21,14 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(BookISBN),std::to_string(AuthorId)});
 	}
+	static int callback(void* data, int argc, char** argv, char** azColName)
+	{
+		std::vector<Contributors*>* ContributorsList = static_cast<std::vector<Contributors*>*>(data);
+		Contributors* myContributors= new Contributors();
+		myContributors->BookISBN = (atoi)(argv[0]);
+		myContributors->AuthorId = (atoi)(argv[1]);
+
+		ContributorsList->push_back(myContributors);
+		return 0;
+	}
 };

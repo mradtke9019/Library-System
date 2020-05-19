@@ -20,9 +20,11 @@ Create and write file
 class column {
 public: 
 	column(std::string t, std::string n) {
-		type = t; name = n;
+		type = t; name = n; cType = t;
 	}
+
 	std::string type;
+	std::string cType;
 	std::string name;
 };
 
@@ -53,17 +55,22 @@ public:
 		temp += "\t};\n";
 
 		temp += "\tstd::string Table() { return \"" + table + "\"; }\n";
+		int i = 0;
 		// Create fields that map to columns for class
 		for (auto x : columns) {
 			if (x.type.find("Integer") == 0 || x.type.find("int") == 0) {
 				temp += "\tint " + x.name + ";\n";
+				columns.at(i).cType = "int";
 			}
 			else if (x.type.find("DateTime") == 0) {
 				temp += "\ttime_t " + x.name + ";\n";
+				columns.at(i).cType = "time_t";
 			}
 			else {
 				temp += "\tstd::string " + x.name + ";\n";
+				columns.at(i).cType = "std::string";
 			}
+			i++;
 		}
 
 		// Create function to get names of all columns for this db model object
@@ -87,11 +94,34 @@ public:
 			else
 				temp += "\"'\" + " + x.name + " + \"'\"";
 
-
 			if (x.name.compare(columns[columns.size() - 1].name))
 				temp += ",";
 		}
 		temp += "});\n\t}\n";
+
+		// Create callback function for select statements
+		i = 0;
+		std::string item = "my" + table;
+		temp += "\tstatic int callback(void* data, int argc, char** argv, char** azColName)\n";
+		temp += "\t{\n";
+		temp += "\t\tstd::vector<" + table + "*>* " + table + "List = static_cast<std::vector<" + table +"*>*>(data);\n";
+		temp += "\t\t" + table + "* " + item + "= new " + table + "();\n";
+		for (auto x : columns)
+		{
+			std::string conversion;
+			if (x.cType.find("int") == 0)
+				conversion = "atoi";
+			else if (x.cType.find("std::string") == 0)
+				conversion = "std::string";
+
+			temp += "\t\t" + item + "->" + x.name + " = (" + conversion + ")(argv[" + std::to_string(i) + "]);\n";
+			i++;
+		}
+
+		temp += "\n\t\t" + table +"List->push_back(" + item + ");\n";
+		temp += "\t\treturn 0;\n";
+
+		temp += "\t}\n";
 
 		temp += "};";
 		return temp;

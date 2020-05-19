@@ -23,4 +23,16 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(BookISBN),std::to_string(MemberId),std::to_string(LoanDate),std::to_string(DueDate)});
 	}
+	static int callback(void* data, int argc, char** argv, char** azColName)
+	{
+		std::vector<Checkouts*>* CheckoutsList = static_cast<std::vector<Checkouts*>*>(data);
+		Checkouts* myCheckouts= new Checkouts();
+		myCheckouts->BookISBN = (atoi)(argv[0]);
+		myCheckouts->MemberId = (atoi)(argv[1]);
+		myCheckouts->LoanDate = ()(argv[2]);
+		myCheckouts->DueDate = ()(argv[3]);
+
+		CheckoutsList->push_back(myCheckouts);
+		return 0;
+	}
 };

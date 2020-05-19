@@ -21,4 +21,14 @@ public:
 	{
 		return std::vector<std::string>({"'" + name + "'","'" + seq + "'"});
 	}
+	static int callback(void* data, int argc, char** argv, char** azColName)
+	{
+		std::vector<sqlite_sequence*>* sqlite_sequenceList = static_cast<std::vector<sqlite_sequence*>*>(data);
+		sqlite_sequence* mysqlite_sequence= new sqlite_sequence();
+		mysqlite_sequence->name = (std::string)(argv[0]);
+		mysqlite_sequence->seq = (std::string)(argv[1]);
+
+		sqlite_sequenceList->push_back(mysqlite_sequence);
+		return 0;
+	}
 };

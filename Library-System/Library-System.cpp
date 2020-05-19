@@ -24,7 +24,6 @@ static int callback(void* data, int argc, char** argv, char** azColName)
 	return 0;
 }
 
-
 int main()
 {
 	Sqlite* db = new Sqlite("Library.db");
@@ -41,8 +40,8 @@ int main()
 	//Author* a = new Author(1, "Matt R", "NULL", "NULL");
 
 	//db->Add(b, callback);
-
-	std::vector<Model*>* books = db->Select("Books", "", callback);
+	std::vector<Books*>* books = db->Select<Books>("Books", "", Books::callback);
+	std::vector<Books*>* asd = db->Select<Books>("Books", "ajshdajhsdljhas", Books::callback);
 
 	std::cout << books->size();
 	//if (db->Select(&books, Book::getTableName(), std::string(), callback))

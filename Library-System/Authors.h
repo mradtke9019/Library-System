@@ -23,4 +23,16 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(Id),"'" + Name + "'","'" + Address + "'","'" + Phone + "'"});
 	}
+	static int callback(void* data, int argc, char** argv, char** azColName)
+	{
+		std::vector<Authors*>* AuthorsList = static_cast<std::vector<Authors*>*>(data);
+		Authors* myAuthors= new Authors();
+		myAuthors->Id = (atoi)(argv[0]);
+		myAuthors->Name = (std::string)(argv[1]);
+		myAuthors->Address = (std::string)(argv[2]);
+		myAuthors->Phone = (std::string)(argv[3]);
+
+		AuthorsList->push_back(myAuthors);
+		return 0;
+	}
 };
