@@ -30,6 +30,7 @@ private:
 		return  "Insert Into " + table + " " + col + "\nValues " + vals + ";";
 	}
 
+	// TODO: Implement some way to pass in primary key with its value for deletion. Gonna be complicated for multi attribute primary keys
 	std::string DeleteStatement(std::string table, std::string condition)
 	{
 		return  "Delete From " + table + (!condition.empty() ? " where " + condition : "");
@@ -107,8 +108,8 @@ public:
 	}
 
 
-	int Execute(std::string sql, void* callback) 
+	int Execute(std::string sql, void* callback = NULL, void* data = NULL) 
 	{
-		return sqlite3_exec(db, sql.c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return sqlite3_exec(db, sql.c_str(), (sqlite3_callback)callback, data, &errMsg);
 	}
 };
