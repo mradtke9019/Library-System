@@ -23,7 +23,7 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(ISBN),std::to_string(Copies),"'" + Title + "'","'" + Summary + "'"});
 	}
-	static int callback(void* data, int argc, char** argv, char** azColName)
+	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{
 		std::vector<Books*>* BooksList = static_cast<std::vector<Books*>*>(data);
 		Books* myBooks= new Books();
@@ -34,5 +34,9 @@ public:
 
 		BooksList->push_back(myBooks);
 		return 0;
+	}
+	std::string updateStatement()
+	{
+		return "Update Books Set ISBN = " + std::to_string(ISBN) + ",Copies = " + std::to_string(Copies) + ",Title = '" + Title + "',Summary = '" + Summary + "' Where ISBN = " + std::to_string(ISBN);
 	}
 };

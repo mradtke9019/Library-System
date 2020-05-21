@@ -21,7 +21,7 @@ public:
 	{
 		return std::vector<std::string>({"'" + name + "'","'" + seq + "'"});
 	}
-	static int callback(void* data, int argc, char** argv, char** azColName)
+	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{
 		std::vector<sqlite_sequence*>* sqlite_sequenceList = static_cast<std::vector<sqlite_sequence*>*>(data);
 		sqlite_sequence* mysqlite_sequence= new sqlite_sequence();
@@ -30,5 +30,9 @@ public:
 
 		sqlite_sequenceList->push_back(mysqlite_sequence);
 		return 0;
+	}
+	std::string updateStatement()
+	{
+		return "Update sqlite_sequence Set name = '" + name + "',seq = '" + seq + "' Where name = '" + name + "'";
 	}
 };

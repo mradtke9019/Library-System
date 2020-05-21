@@ -39,14 +39,13 @@ int main()
 
 	//Author* a = new Author(1, "Matt R", "NULL", "NULL");
 
-	//db->Add(b, callback);
-	std::vector<Books*>* books = db->Select<Books>("Books", "", Books::callback);
-	std::vector<Books*>* asd = db->Select<Books>("Books", "ajshdajhsdljhas", Books::callback);
+	std::cout << "Add: " << db->Add(b) << "\n";
+	b->Summary = "Updating physics book";
+	std::cout << "Update: " << db->Update(b) << "\n";
+	Books* bCheck = db->Select<Books>("Books", "ISBN = 5551", Books::selectCallback)->at(0);
+	std::cout << "Remove: " << db->Remove(b) << "\n";
+	std::cout<< "Size should be 0. Size: " << db->Select<Books>("Books", "ISBN = 5551", Books::selectCallback)->size() << "\n";
 
-	std::cout << books->size();
-	//if (db->Select(&books, Book::getTableName(), std::string(), callback))
-	//{
-	//	std::cout << db->getErrorMessage() << std::endl;
-	//}
-	//db->Add(a, callback);
+	//std::vector<Books*>* books = db->Select<Books>("Books", "", Books::selectCallback);
+	//books->at(0)->Summary = "This is an updated summary";
 }

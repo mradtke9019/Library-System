@@ -30,15 +30,32 @@ private:
 		return  "Insert Into " + table + " " + col + "\nValues " + vals + ";";
 	}
 
-	// TODO: Implement
-	std::string DeleteStatement(std::string table)
+	std::string DeleteStatement(std::string table, std::string condition)
 	{
-		return  "Delete From " + table + " where ";
+		return  "Delete From " + table + (!condition.empty() ? " where " + condition : "");
 	}
 	
 	std::string SelectStatement(std::string table, std::string condition)
 	{
 		return "Select * From " + table + (!condition.empty() ? " where "  + condition : "");
+	}
+
+	std::string UpdateStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values, std::string pk,std::string p)
+	{
+		std::string vals = "(";
+		std::vector<std::string>::iterator c = columns.begin(), v = values.begin();
+
+		vals += *v;
+
+		for (; c != columns.end(); ++c) 
+		{
+			vals += "," + *v;
+			++v;
+		}
+
+		//col += ")"; vals += ")";
+
+		return "Update " + table + " Set " + " Where " + pk + "=";
 	}
 
 
@@ -67,9 +84,10 @@ public:
 		return sqlite3_exec(db, InsertStatement(item->Table(), item->Columns(), item->Values()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
-	int Remove(Model* item, void* callback)
+	//TODO: Update so that it accepts
+	int Remove(Model* item, void* callback = NULL)
 	{
-
+		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns().at(0)).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
 	// Attempt to select data and place it in our store
@@ -81,6 +99,11 @@ public:
 		if (rc) 
 			throw SqlException(std::string(errMsg));
 		return data;
+	}
+
+	int Update(Model* item, void* callback = NULL)
+	{
+		return sqlite3_exec(db, item->updateStatement().c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
 

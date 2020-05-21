@@ -23,7 +23,7 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(BookISBN),std::to_string(MemberId),std::to_string(LoanDate),std::to_string(DueDate)});
 	}
-	static int callback(void* data, int argc, char** argv, char** azColName)
+	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{
 		std::vector<Checkouts*>* CheckoutsList = static_cast<std::vector<Checkouts*>*>(data);
 		Checkouts* myCheckouts= new Checkouts();
@@ -34,5 +34,9 @@ public:
 
 		CheckoutsList->push_back(myCheckouts);
 		return 0;
+	}
+	std::string updateStatement()
+	{
+		return "Update Checkouts Set BookISBN = " + std::to_string(BookISBN) + ",MemberId = " + std::to_string(MemberId) + ",, Where BookISBN = " + std::to_string(BookISBN);
 	}
 };

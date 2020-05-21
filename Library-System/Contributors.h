@@ -21,7 +21,7 @@ public:
 	{
 		return std::vector<std::string>({std::to_string(BookISBN),std::to_string(AuthorId)});
 	}
-	static int callback(void* data, int argc, char** argv, char** azColName)
+	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{
 		std::vector<Contributors*>* ContributorsList = static_cast<std::vector<Contributors*>*>(data);
 		Contributors* myContributors= new Contributors();
@@ -30,5 +30,9 @@ public:
 
 		ContributorsList->push_back(myContributors);
 		return 0;
+	}
+	std::string updateStatement()
+	{
+		return "Update Contributors Set BookISBN = " + std::to_string(BookISBN) + ",AuthorId = " + std::to_string(AuthorId) + " Where BookISBN = " + std::to_string(BookISBN);
 	}
 };

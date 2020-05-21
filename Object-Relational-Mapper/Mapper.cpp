@@ -102,7 +102,7 @@ public:
 		// Create callback function for select statements
 		i = 0;
 		std::string item = "my" + table;
-		temp += "\tstatic int callback(void* data, int argc, char** argv, char** azColName)\n";
+		temp += "\tstatic int selectCallback(void* data, int argc, char** argv, char** azColName)\n";
 		temp += "\t{\n";
 		temp += "\t\tstd::vector<" + table + "*>* " + table + "List = static_cast<std::vector<" + table +"*>*>(data);\n";
 		temp += "\t\t" + table + "* " + item + "= new " + table + "();\n";
@@ -120,6 +120,24 @@ public:
 
 		temp += "\n\t\t" + table +"List->push_back(" + item + ");\n";
 		temp += "\t\treturn 0;\n";
+		temp += "\t}\n";
+
+		temp += "\tstd::string updateStatement()\n";
+		temp += "\t{\n";
+
+		temp += "\t\treturn \"Update " + table + " Set ";
+		for (auto x : columns) {
+			if(x.cType.find("std::string") == 0)
+				temp += x.name + " = '\" + " + x.name + " + \"'";
+			else if (x.cType.find("int") == 0)
+				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
+			if (x.name.compare(columns[columns.size() - 1].name))
+				temp += ",";
+		}
+		if(columns.at(0).cType.find("std::string") == 0)
+			temp += " Where " + columns.at(0).name + " = '\" + " + columns.at(0).name + " + \"'\";\n";
+		else if (columns.at(0).cType.find("int") == 0)
+			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
 
 		temp += "\t}\n";
 
