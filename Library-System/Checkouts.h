@@ -29,14 +29,14 @@ public:
 		Checkouts* myCheckouts= new Checkouts();
 		myCheckouts->BookISBN = (atoi)(argv[0]);
 		myCheckouts->MemberId = (atoi)(argv[1]);
-		myCheckouts->LoanDate = ()(argv[2]);
-		myCheckouts->DueDate = ()(argv[3]);
+		myCheckouts->LoanDate = (atoll)(argv[2]);
+		myCheckouts->DueDate = (atoll)(argv[3]);
 
 		CheckoutsList->push_back(myCheckouts);
 		return 0;
 	}
 	std::string updateStatement()
 	{
-		return "Update Checkouts Set BookISBN = " + std::to_string(BookISBN) + ",MemberId = " + std::to_string(MemberId) + ",, Where BookISBN = " + std::to_string(BookISBN);
+		return "Update Checkouts Set BookISBN = " + std::to_string(BookISBN) + ",MemberId = " + std::to_string(MemberId) + ",LoanDate = " + std::to_string(LoanDate) + ",DueDate = " + std::to_string(DueDate) + " Where BookISBN = " + std::to_string(BookISBN);
 	}
 };

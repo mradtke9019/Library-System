@@ -19,13 +19,14 @@ Create and write file
 */
 class column {
 public: 
-	column(std::string t, std::string n) {
-		type = t; name = n; cType = t;
+	column(std::string t, std::string n, bool primaryKey) {
+		type = t; name = n; cType = t; pk = primaryKey;
 	}
 
 	std::string type;
 	std::string cType;
 	std::string name;
+	bool pk;
 };
 
 class Model {
@@ -113,6 +114,8 @@ public:
 				conversion = "atoi";
 			else if (x.cType.find("std::string") == 0)
 				conversion = "std::string";
+			else if (x.cType.find("time_t") == 0)
+				conversion = "atoll";
 
 			temp += "\t\t" + item + "->" + x.name + " = (" + conversion + ")(argv[" + std::to_string(i) + "]);\n";
 			i++;
@@ -122,6 +125,8 @@ public:
 		temp += "\t\treturn 0;\n";
 		temp += "\t}\n";
 
+
+		// Create update statment for models. Need way to specify primary keys though so we update on pks.
 		temp += "\tstd::string updateStatement()\n";
 		temp += "\t{\n";
 
@@ -131,12 +136,18 @@ public:
 				temp += x.name + " = '\" + " + x.name + " + \"'";
 			else if (x.cType.find("int") == 0)
 				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
+			else if (x.cType.find("time_t") == 0)
+				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
 			if (x.name.compare(columns[columns.size() - 1].name))
 				temp += ",";
 		}
+
+		// TODO: Refactor this later to do Where by primary key instead of first attribute
 		if(columns.at(0).cType.find("std::string") == 0)
 			temp += " Where " + columns.at(0).name + " = '\" + " + columns.at(0).name + " + \"'\";\n";
 		else if (columns.at(0).cType.find("int") == 0)
+			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
+		else if (columns.at(0).cType.find("time_t") == 0)
 			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
 
 		temp += "\t}\n";
@@ -178,7 +189,8 @@ static int tableCallback(void* data, int argc, char** argv, char** azColName)
 
 static int columnCallback(void* data, int argc, char** argv, char** azColName)
 {
-	columns->push_back(column(argv[2],argv[1]));
+	//argv[5] = primary key?
+	columns->push_back(column(argv[2],argv[1],std::string("1").compare(argv[5]) == 0));
 	return 0;
 }
 
