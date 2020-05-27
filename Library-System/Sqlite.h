@@ -114,6 +114,21 @@ public:
 		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
+	// Attempts to remove the database records then delete c++ memory
+	int Remove(std::vector<Model*>* items, void* callback = NULL)
+	{
+		int rc = 0;
+		for (auto item : *items) 
+		{
+			rc = sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+			if (rc != 0)
+				return rc;
+			delete item;
+		}
+		delete items;
+		return rc;
+	}
+
 	// Attempt to select data and place it in our store
 	template <typename T>
 	std::vector<T*>* Select(std::string table, std::string condition, void* callback) 
