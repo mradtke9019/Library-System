@@ -35,4 +35,8 @@ public:
 	{
 		return "Update sqlite_sequence Set name = '" + name + "',seq = '" + seq + "' Where name = '" + name + "'";
 	}
+	std::vector<std::string> primaryKeys()
+	{
+		return std::vector<std::string>({});
+	}
 };

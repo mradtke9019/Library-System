@@ -41,22 +41,29 @@ private:
 		return "Select * From " + table + (!condition.empty() ? " where "  + condition : "");
 	}
 
-	std::string UpdateStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values, std::string pk,std::string p)
+	std::string UpdateStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values, std::vector<std::string> pks)
 	{
-		std::string vals = "(";
+
+		std::string vals = "";
+		std::string pkCondition = "";
 		std::vector<std::string>::iterator c = columns.begin(), v = values.begin();
 
-		vals += *v;
 
-		for (; c != columns.end(); ++c) 
+		for (; c != columns.end(); ++c,++v) { vals +=  *c + " = " + *v + (*c != columns.at(columns.size() - 1) ? "," : ""); }
+		for (int i = 0; i < pks.size(); i++)
 		{
-			vals += "," + *v;
-			++v;
+			for (int j = 0; j < values.size(); j++)
+			{
+				if (pks[i].compare(columns[j]) == 0)
+				{
+					pkCondition += pks[i] + " = " + values[j];
+					if (pks.size() > 1 && i < pks.size() - 1)
+						pkCondition += " and ";
+				}
+			}
 		}
 
-		//col += ")"; vals += ")";
-
-		return "Update " + table + " Set " + " Where " + pk + "=";
+		return "Update " + table + " Set " + vals + " Where " + pkCondition;
 	}
 
 
@@ -104,7 +111,7 @@ public:
 
 	int Update(Model* item, void* callback = NULL)
 	{
-		return sqlite3_exec(db, item->updateStatement().c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return sqlite3_exec(db, UpdateStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
 

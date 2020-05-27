@@ -17,15 +17,20 @@ Add custom inheritcance for every table class created
 Create and write file
 
 */
+
+enum C__Type { String, Int, Date } c__Types;
+enum DbType { varchar, Integer, DateTime } dbTypes;
+
 class column {
 public: 
-	column(std::string t, std::string n, bool primaryKey) {
-		type = t; name = n; cType = t; pk = primaryKey;
-	}
 
-	std::string type;
-	std::string cType;
+	column(std::string Name, DbType dbt, C__Type ct, bool primaryKey)
+	{
+		name = Name; dbType = dbt; c__type = ct; pk = primaryKey;
+	}
 	std::string name;
+	C__Type c__type;
+	DbType dbType;
 	bool pk;
 };
 
@@ -59,17 +64,17 @@ public:
 		int i = 0;
 		// Create fields that map to columns for class
 		for (auto x : columns) {
-			if (x.type.find("Integer") == 0 || x.type.find("int") == 0) {
+			if (x.dbType == Integer) {
 				temp += "\tint " + x.name + ";\n";
-				columns.at(i).cType = "int";
+				columns.at(i).c__type = Int;
 			}
-			else if (x.type.find("DateTime") == 0) {
+			else if (x.dbType == DateTime) {
 				temp += "\ttime_t " + x.name + ";\n";
-				columns.at(i).cType = "time_t";
+				columns.at(i).c__type = Date;
 			}
 			else {
 				temp += "\tstd::string " + x.name + ";\n";
-				columns.at(i).cType = "std::string";
+				columns.at(i).c__type = String;
 			}
 			i++;
 		}
@@ -90,7 +95,7 @@ public:
 		temp += "\t{\n";
 		temp += "\t\treturn std::vector<std::string>({";
 		for (auto x : columns) {
-			if (x.type.find("Integer") == 0 || x.type.find("int") == 0 || x.type.find("DateTime") == 0)
+			if (x.dbType == Integer || x.dbType == DateTime)
 				temp += "std::to_string(" + x.name + ")";
 			else
 				temp += "\"'\" + " + x.name + " + \"'\"";
@@ -110,11 +115,11 @@ public:
 		for (auto x : columns)
 		{
 			std::string conversion;
-			if (x.cType.find("int") == 0)
+			if (x.c__type == Int)
 				conversion = "atoi";
-			else if (x.cType.find("std::string") == 0)
+			else if (x.c__type == String)
 				conversion = "std::string";
-			else if (x.cType.find("time_t") == 0)
+			else if (x.c__type == Date)
 				conversion = "atoll";
 
 			temp += "\t\t" + item + "->" + x.name + " = (" + conversion + ")(argv[" + std::to_string(i) + "]);\n";
@@ -132,25 +137,44 @@ public:
 
 		temp += "\t\treturn \"Update " + table + " Set ";
 		for (auto x : columns) {
-			if(x.cType.find("std::string") == 0)
+			if(x.c__type == String)
 				temp += x.name + " = '\" + " + x.name + " + \"'";
-			else if (x.cType.find("int") == 0)
+			else if (x.c__type == Int)
 				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
-			else if (x.cType.find("time_t") == 0)
+			else if (x.c__type == Date)
 				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
+
 			if (x.name.compare(columns[columns.size() - 1].name))
 				temp += ",";
 		}
 
 		// TODO: Refactor this later to do Where by primary key instead of first attribute
-		if(columns.at(0).cType.find("std::string") == 0)
+		if(columns.at(0).c__type == String)
 			temp += " Where " + columns.at(0).name + " = '\" + " + columns.at(0).name + " + \"'\";\n";
-		else if (columns.at(0).cType.find("int") == 0)
+		else if (columns.at(0).c__type == Int)
 			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
-		else if (columns.at(0).cType.find("time_t") == 0)
+		else if (columns.at(0).c__type == Date)
 			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
 
 		temp += "\t}\n";
+
+
+		// Create the primaryKeyValue function here
+		temp += "\tstd::vector<std::string> primaryKeys()\n";
+		temp += "\t{\n";
+		temp += "\t\treturn std::vector<std::string>({";
+		i = 0;
+		for (auto x : columns) {
+			if (!x.pk) {
+				i++;
+				break;
+			}
+			temp += "\"" + x.name + "\"";
+			if (x.name.compare(columns.at(columns.size() - 1).name) != 0 && columns.at(i + 1).pk)
+				temp += ",";
+			i++;
+		}
+		temp += "});\n\t}\n";
 
 		temp += "};";
 		return temp;
@@ -187,10 +211,16 @@ static int tableCallback(void* data, int argc, char** argv, char** azColName)
 	return 0;
 }
 
-static int columnCallback(void* data, int argc, char** argv, char** azColName)
+int columnCallback(void* data, int argc, char** argv, char** azColName)
 {
-	//argv[5] = primary key?
-	columns->push_back(column(argv[2],argv[1],std::string("1").compare(argv[5]) == 0));
+	//argv[5] says if pk or not. Anything other than 0 means pk
+	DbType dbt{};
+	C__Type ct{};
+	if (std::string(argv[2]).find("int") == 0 || std::string(argv[2]).find("Integer") == 0) { dbt = Integer; ct = Int; }
+	else if (std::string(argv[2]).find("DateTime") == 0) { dbt = DateTime; ct = Date; }
+	else if (std::string(argv[2]).find("varchar") == 0) { dbt = varchar; ct = String; }
+	
+	columns->push_back(column(argv[1], dbt, ct,std::string("0").compare(argv[5]) != 0));
 	return 0;
 }
 

@@ -39,4 +39,8 @@ public:
 	{
 		return "Update Checkouts Set BookISBN = " + std::to_string(BookISBN) + ",MemberId = " + std::to_string(MemberId) + ",LoanDate = " + std::to_string(LoanDate) + ",DueDate = " + std::to_string(DueDate) + " Where BookISBN = " + std::to_string(BookISBN);
 	}
+	std::vector<std::string> primaryKeys()
+	{
+		return std::vector<std::string>({"BookISBN","MemberId"});
+	}
 };
