@@ -108,7 +108,21 @@ public:
 		return sqlite3_exec(db, InsertStatement(item->Table(), item->Columns(), item->Values()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
-	//TODO: Update so that it accepts
+	// Attempts to add an array of items to the database
+	int Add(std::vector<Model*>* items, void* callback = NULL)
+	{
+		int rc = 0;
+		for (auto item : *items) 
+		{
+			rc = sqlite3_exec(db, InsertStatement(item->Table(), item->Columns(), item->Values()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+			if (rc != 0)
+				return rc;
+
+		}
+		return rc;
+	}
+
+	// Removes a record from the database and returns the status code
 	int Remove(Model* item, void* callback = NULL)
 	{
 		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
@@ -143,6 +157,19 @@ public:
 	int Update(Model* item, void* callback = NULL)
 	{
 		return sqlite3_exec(db, UpdateStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+	}
+
+
+	int Update(std::vector<Model*>* items, void* callback = NULL)
+	{
+		int rc = 0;
+		for (auto item : *items)
+		{
+			rc = sqlite3_exec(db, UpdateStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+			if (rc != 0)
+				return rc;
+		}
+		return rc;
 	}
 
 
