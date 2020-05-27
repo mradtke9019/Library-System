@@ -125,7 +125,11 @@ public:
 	// Removes a record from the database and returns the status code
 	int Remove(Model* item, void* callback = NULL)
 	{
-		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		int rc = 0;
+		rc = sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		if (rc == 0)
+			delete item;
+		return rc;
 	}
 
 	// Attempts to remove the database records then delete c++ memory
