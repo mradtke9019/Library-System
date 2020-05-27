@@ -31,9 +31,25 @@ private:
 	}
 
 	// TODO: Implement some way to pass in primary key with its value for deletion. Gonna be complicated for multi attribute primary keys
-	std::string DeleteStatement(std::string table, std::string condition)
+	std::string DeleteStatement(std::string table, std::vector<std::string> columns, std::vector<std::string> values, std::vector<std::string> pks)
 	{
-		return  "Delete From " + table + (!condition.empty() ? " where " + condition : "");
+		std::string pkCondition = "";
+
+
+		for (int i = 0; i < pks.size(); i++)
+		{
+			for (int j = 0; j < values.size(); j++)
+			{
+				if (pks[i].compare(columns[j]) == 0)
+				{
+					pkCondition += pks[i] + " = " + values[j];
+					if (pks.size() > 1 && i < pks.size() - 1)
+						pkCondition += " and ";
+				}
+			}
+		}
+
+		return  "Delete From " + table + " Where " + pkCondition;
 	}
 	
 	std::string SelectStatement(std::string table, std::string condition)
@@ -95,7 +111,7 @@ public:
 	//TODO: Update so that it accepts
 	int Remove(Model* item, void* callback = NULL)
 	{
-		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns().at(0)).c_str(), (sqlite3_callback)callback, 0, &errMsg);
+		return sqlite3_exec(db, DeleteStatement(item->Table(), item->Columns(), item->Values(), item->primaryKeys()).c_str(), (sqlite3_callback)callback, 0, &errMsg);
 	}
 
 	// Attempt to select data and place it in our store
