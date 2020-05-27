@@ -11,8 +11,6 @@ public:
 	virtual std::vector<std::string> Columns() = 0;
 	// Returns the values of the current record
 	virtual std::vector<std::string> Values() = 0;
-
-	virtual std::string updateStatement() = 0;
 	virtual std::vector<std::string> primaryKeys() = 0;
 	//std::string Id() { return Columns()[0]; }
 	

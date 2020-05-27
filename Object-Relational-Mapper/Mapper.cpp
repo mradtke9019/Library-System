@@ -130,35 +130,6 @@ public:
 		temp += "\t\treturn 0;\n";
 		temp += "\t}\n";
 
-
-		// Create update statment for models. Need way to specify primary keys though so we update on pks.
-		temp += "\tstd::string updateStatement()\n";
-		temp += "\t{\n";
-
-		temp += "\t\treturn \"Update " + table + " Set ";
-		for (auto x : columns) {
-			if(x.c__type == String)
-				temp += x.name + " = '\" + " + x.name + " + \"'";
-			else if (x.c__type == Int)
-				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
-			else if (x.c__type == Date)
-				temp += x.name + " = \" + std::to_string(" + x.name + ") + \"";
-
-			if (x.name.compare(columns[columns.size() - 1].name))
-				temp += ",";
-		}
-
-		// TODO: Refactor this later to do Where by primary key instead of first attribute
-		if(columns.at(0).c__type == String)
-			temp += " Where " + columns.at(0).name + " = '\" + " + columns.at(0).name + " + \"'\";\n";
-		else if (columns.at(0).c__type == Int)
-			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
-		else if (columns.at(0).c__type == Date)
-			temp += " Where " + columns.at(0).name + " = \" + std::to_string(" + columns.at(0).name + ");\n";
-
-		temp += "\t}\n";
-
-
 		// Create the primaryKeyValue function here
 		temp += "\tstd::vector<std::string> primaryKeys()\n";
 		temp += "\t{\n";

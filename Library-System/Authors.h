@@ -35,10 +35,6 @@ public:
 		AuthorsList->push_back(myAuthors);
 		return 0;
 	}
-	std::string updateStatement()
-	{
-		return "Update Authors Set Id = " + std::to_string(Id) + ",Name = '" + Name + "',Address = '" + Address + "',Phone = '" + Phone + "' Where Id = " + std::to_string(Id);
-	}
 	std::vector<std::string> primaryKeys()
 	{
 		return std::vector<std::string>({"Id"});

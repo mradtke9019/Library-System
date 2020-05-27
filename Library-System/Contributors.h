@@ -31,10 +31,6 @@ public:
 		ContributorsList->push_back(myContributors);
 		return 0;
 	}
-	std::string updateStatement()
-	{
-		return "Update Contributors Set BookISBN = " + std::to_string(BookISBN) + ",AuthorId = " + std::to_string(AuthorId) + " Where BookISBN = " + std::to_string(BookISBN);
-	}
 	std::vector<std::string> primaryKeys()
 	{
 		return std::vector<std::string>({"BookISBN","AuthorId"});

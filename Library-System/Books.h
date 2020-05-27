@@ -35,10 +35,6 @@ public:
 		BooksList->push_back(myBooks);
 		return 0;
 	}
-	std::string updateStatement()
-	{
-		return "Update Books Set ISBN = " + std::to_string(ISBN) + ",Copies = " + std::to_string(Copies) + ",Title = '" + Title + "',Summary = '" + Summary + "' Where ISBN = " + std::to_string(ISBN);
-	}
 	std::vector<std::string> primaryKeys()
 	{
 		return std::vector<std::string>({"ISBN"});

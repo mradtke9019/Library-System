@@ -31,10 +31,6 @@ public:
 		sqlite_sequenceList->push_back(mysqlite_sequence);
 		return 0;
 	}
-	std::string updateStatement()
-	{
-		return "Update sqlite_sequence Set name = '" + name + "',seq = '" + seq + "' Where name = '" + name + "'";
-	}
 	std::vector<std::string> primaryKeys()
 	{
 		return std::vector<std::string>({});
