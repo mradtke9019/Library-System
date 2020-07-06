@@ -19,3 +19,5 @@ next. The goal of this is to get exposed to the graphics pipeline and understand
 
 This ORM tool does not yet allow users to create tables and schemas from a sqlite database, so queries must be executed onto the table
 beforehand to create whatever schemas are desired to a *.db* file. Indexes are also not yet possible with the current work done.
+
+All sqlite credits and info can be read here: https://www.sqlite.org/cintro.html
