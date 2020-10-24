@@ -8,7 +8,10 @@ private:
 public:
 	Authors()
 	{
-	
+		Id = 0;
+		Name = "";
+		Address = "";
+		Phone = "";
 	};
 	std::string Table() { return "Authors"; }
 	int Id;

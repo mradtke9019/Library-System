@@ -8,7 +8,11 @@ private:
 public:
 	Members()
 	{
-	
+		Id = 0;
+		Name = "";
+		Address = "";
+		Email = "";
+		Phone = "";
 	};
 	std::string Table() { return "Members"; }
 	int Id;

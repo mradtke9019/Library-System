@@ -8,7 +8,10 @@ private:
 public:
 	Books()
 	{
-	
+		ISBN = 0;
+		Copies = 0;
+		Title = "";
+		Summary = "";
 	};
 	std::string Table() { return "Books"; }
 	int ISBN;

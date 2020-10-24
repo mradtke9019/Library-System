@@ -8,7 +8,10 @@ private:
 public:
 	Checkouts()
 	{
-	
+		BookISBN = 0;
+		MemberId = 0;
+		LoanDate = 0;
+		DueDate = 0;
 	};
 	std::string Table() { return "Checkouts"; }
 	int BookISBN;

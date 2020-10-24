@@ -8,7 +8,8 @@ private:
 public:
 	sqlite_sequence()
 	{
-	
+		name = "";
+		seq = "";
 	};
 	std::string Table() { return "sqlite_sequence"; }
 	std::string name;
