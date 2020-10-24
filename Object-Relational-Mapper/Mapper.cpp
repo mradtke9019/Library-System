@@ -57,11 +57,29 @@ public:
 		temp += "public:\n";
 		temp += "\t" + table + "(" + ")\n"; 
 		temp += "\t{\n";
-		temp += "\t\n";
+		int i = 0;
+
+		// Build the constructor
+		for (auto x : columns)
+		{
+			std::string ctor = "";
+			if (x.dbType == Integer) {
+				ctor += x.name + " = 0;";
+			}
+			else if (x.dbType == DateTime) {
+				ctor += x.name + " = 0;";
+			}
+			else {
+				ctor += x.name + " = \"\";";
+			}
+			temp += "\t\t" + ctor + "\n";
+			i++;
+		}
+
 		temp += "\t};\n";
 
 		temp += "\tstd::string Table() { return \"" + table + "\"; }\n";
-		int i = 0;
+		i = 0;
 		// Create fields that map to columns for class
 		for (auto x : columns) {
 			if (x.dbType == Integer) {
