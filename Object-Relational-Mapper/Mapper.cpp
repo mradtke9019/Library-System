@@ -244,6 +244,7 @@ void dbstuff() {
 
 int main()
 {
+	// Add command line arguments to specify paths and db file at some point if we want this to be a generic tool for any sqlite db
 	dbstuff();
 	std::string path = "../Library-System/";
 	if (CreateDirectory(path.c_str(), NULL) ||
