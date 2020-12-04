@@ -18,7 +18,7 @@ public:
 	wxButton* m_btn1 = nullptr;
 	wxTextCtrl* m_txt1 = nullptr;
 	wxListBox *m_list1 = nullptr;
-	//Sqlite* db = nullptr;
+	Sqlite* db = nullptr;
 
 	void OnButtonClicked(wxCommandEvent& evt);
 
