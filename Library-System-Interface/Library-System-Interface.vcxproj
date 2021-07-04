@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cApp.cpp" />
+    <ClCompile Include="cHeader.cpp" />
     <ClCompile Include="cMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cApp.h" />
+    <ClInclude Include="cHeader.h" />
     <ClInclude Include="cMain.h" />
   </ItemGroup>
   <ItemGroup>

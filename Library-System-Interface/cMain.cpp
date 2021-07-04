@@ -7,14 +7,15 @@ wxBEGIN_EVENT_TABLE(cMain, wxFrame)
 EVT_BUTTON(10001, OnButtonClicked)
 wxEND_EVENT_TABLE()
 
-cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Library System", wxPoint(30, 30), wxSize(800, 600))
+cMain::cMain() : wxFrame(nullptr, wxID_ANY, "Library System", wxPoint(30, 30), wxSize(1200, 800))
 {
 	// Parent window is responsible of handling events for children
-	m_btn1 = new wxButton(this, 10001, "Click me(Label)", wxPoint(10, 10), wxSize(150, 50));
-	m_txt1 = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 70), wxSize(300, 30));
-	m_list1 = new wxListBox(this, wxID_ANY, wxPoint(10, 110), wxSize(300, 300));
+	// (parent of button is this window,
+	m_btn1 = new wxButton(this, 10001, "Click me(Label)", wxPoint(10, 200), wxSize(150, 50));
+	m_txt1 = new wxTextCtrl(this, wxID_ANY, "", wxPoint(10, 270), wxSize(300, 30));
+	m_list1 = new wxListBox(this, wxID_ANY, wxPoint(10, 310), wxSize(300, 300));
+	menu = new cHeader(this, wxID_ANY, wxColor("red") ,wxPoint(0, 0), wxSize(this->GetSize().x, 50));
 	db = new Sqlite("C:\\Users\\mradt\\source\\repos\\Library-System\\Library-System\\Library.db");
-
 }
 
 cMain::~cMain()

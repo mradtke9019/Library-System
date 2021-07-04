@@ -20,7 +20,7 @@ public:
 	}
 	std::vector<std::string> Values()
 	{
-		return std::vector<std::string>({"'" + name + "'","'" + seq + "'"});
+		return std::vector<std::string>({name,seq});
 	}
 	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{

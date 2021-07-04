@@ -116,7 +116,7 @@ public:
 			if (x.dbType == Integer || x.dbType == DateTime)
 				temp += "std::to_string(" + x.name + ")";
 			else
-				temp += "\"'\" + " + x.name + " + \"'\"";
+				temp +=  x.name ;
 
 			if (x.name.compare(columns[columns.size() - 1].name))
 				temp += ",";
