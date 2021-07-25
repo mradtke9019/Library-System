@@ -1,3 +1,9 @@
+Create Table IF NOT EXISTS Organization(
+	Id int,
+	Name varchar(50),
+	Primary Key(Id)
+);
+
 Create Table IF NOT EXISTS Books(
 	ISBN int,
 	Copies int check(Copies > 0),
