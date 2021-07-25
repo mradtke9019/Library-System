@@ -29,6 +29,10 @@ namespace Library_System_Web
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
+            services.AddDbContext<Library_System_Web.Models.LibrarySystemContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("LibrarySystemConnection")));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));

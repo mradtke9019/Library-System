@@ -1,7 +1,23 @@
-﻿@{
+﻿@model Library_System_Web.ViewModels.Home.Index
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-
+<div class="">
+    <div class="col-8">
+        <h3>Welcome to the Library! Check out our featured books</h3>
+    </div>
 </div>
+
+@foreach (var book in Model.FeaturedBooks)
+{
+    <div class="col-3">
+        @if (!string.IsNullOrEmpty(book.ImagePath))
+        {
+            <img src="@book.ImagePath" />
+        }
+        <a href="./Home">
+            @book.Title
+        </a>
+    </div>
+}

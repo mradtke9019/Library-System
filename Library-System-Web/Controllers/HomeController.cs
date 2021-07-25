@@ -12,15 +12,21 @@ namespace Library_System_Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly LibrarySystemContext _librarySystemContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, LibrarySystemContext context)
         {
             _logger = logger;
+            _librarySystemContext = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            // Get all the 
+            List<int> ids = _librarySystemContext.FeaturedBooks.Select(x => x.BookIsbn).ToList();
+            Library_System_Web.ViewModels.Home.Index model = new ViewModels.Home.Index();
+            model.FeaturedBooks = ids.Select(x => _librarySystemContext.Books.Where(y => y.Isbn == x).First()).ToList();// _librarySystemContext.Books.Where(x => ids.Contains(x.Isbn)).ToList();
+            return View(model);
         }
 
         public IActionResult Privacy()
