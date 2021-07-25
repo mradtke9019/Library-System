@@ -1,0 +1,19 @@
+﻿@model Library_System_Web.ViewModels.Books.Details
+
+<div>
+    <h4>This is the detials page of a book</h4>
+    @if (Model.Book == null)
+    {
+        <p>No book found for ISBN</p>
+    }
+    else
+    {
+        @Html.PartialAsync("/Books/_BookCard.cshtml",Model.Book)
+        @*<h6>@Model.Book.Title</h6>
+        if (!string.IsNullOrEmpty(Model.Book.ImagePath))
+        {
+            <img src="@Model.Book.ImagePath" />
+        }
+        <p>@Model.Book.Summary</p>*@
+    }
+</div>

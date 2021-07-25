@@ -9,15 +9,20 @@
     </div>
 </div>
 
-@foreach (var book in Model.FeaturedBooks)
-{
-    <div class="col-3">
-        @if (!string.IsNullOrEmpty(book.ImagePath))
-        {
-            <img src="@book.ImagePath" />
-        }
-        <a href="./Home">
-            @book.Title
-        </a>
-    </div>
-}
+<div class="row">
+    @foreach (var book in Model.FeaturedBooks)
+    {
+        <div class="col-sm-3 py-3">
+            @await Html.PartialAsync("/Views/Books/_BookCard.cshtml", book)
+        </div>
+        @*<div class="col-3">
+                @if (!string.IsNullOrEmpty(book.ImagePath))
+                {
+                    <img src="@book.ImagePath" />
+                }
+                <a href="./Books/Details?ISBN=@book.Isbn">
+                    @book.Title
+                </a>
+            </div>*@
+    }
+</div>

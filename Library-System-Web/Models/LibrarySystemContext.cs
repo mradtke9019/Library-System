@@ -21,6 +21,7 @@ namespace Library_System_Web.Models
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<BookCategorization> BookCategorizations { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Checkout> Checkouts { get; set; }
         public virtual DbSet<Contributor> Contributors { get; set; }
         public virtual DbSet<FeaturedBook> FeaturedBooks { get; set; }
         public virtual DbSet<Member> Members { get; set; }
@@ -86,6 +87,17 @@ namespace Library_System_Web.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Checkout>(entity =>
+            {
+                entity.HasKey(e => new { e.BookIsbn, e.MemberId });
+
+                entity.Property(e => e.BookIsbn).HasColumnName("BookISBN");
+
+                entity.Property(e => e.DueDate).HasColumnType("date");
+
+                entity.Property(e => e.LoanDate).HasColumnType("date");
             });
 
             modelBuilder.Entity<Contributor>(entity =>
