@@ -1,9 +1,11 @@
 using Library_System_Web.Data;
+using Library_System_Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +31,7 @@ namespace Library_System_Web
         {
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
+            // Dependency inject dbcontext with appsetting connection
             services.AddDbContext<Library_System_Web.Models.LibrarySystemContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("LibrarySystemConnection")));
@@ -40,6 +43,17 @@ namespace Library_System_Web
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.Configure<IdentityOptions>(options => 
+            {
+                // Add options like password complexity requirements here
+            });
+
+            // Added to allow for authentication by MR. Source: youtube video
+            services.AddTransient<IEmailSender, EmailSender>(serviceProvider => 
+            {
+                return new EmailSender(Configuration.GetValue<string>("Email:username"), Configuration.GetValue<string>("Email:password"));
+            });
             services.AddControllersWithViews();
         }
 
@@ -53,10 +67,12 @@ namespace Library_System_Web
             }
             else
             {
+                //app.UseDeveloperExceptionPage();
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
