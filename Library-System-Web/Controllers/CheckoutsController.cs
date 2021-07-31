@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library_System_Web.ViewModels.Checkouts;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library_System_Web.Controllers
 {
@@ -35,8 +36,26 @@ namespace Library_System_Web.Controllers
         [HttpPost]
         public IActionResult Add(ViewModels.Checkouts.Index data)
         {
+            if(User.Identity.Name == null)
+            {
+                RedirectToAction("Index", "Checkouts");
+            }
+            // Get the users corresponding account
+            Member member = _librarySystemContext.Members.FirstOrDefault(x => x.Email == User.Identity.Name);
+            if(member == null)
+            {
+                member = new Member()
+                {
+                    Email = User.Identity.Name,
+                };
+                _librarySystemContext.Members.Add(member);
+                _librarySystemContext.SaveChanges();
+                member = _librarySystemContext.Members.FirstOrDefault(x => x.Email == User.Identity.Name);
+            }
+            data.Checkout.MemberId = member.Id;
             _librarySystemContext.Checkouts.Add(data.Checkout);
-            return RedirectToAction();
+            _librarySystemContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
