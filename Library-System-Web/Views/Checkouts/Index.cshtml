@@ -4,11 +4,10 @@
     Checkout
 </h2>
 
-<form asp-action="Add" >
+<form asp-action="Add">
+    @Html.HiddenFor(model => model.Checkout.LoanDate)
     @Html.LabelFor(x => x.Book.Isbn)
-    @Html.TextBoxFor(x => x.Book.Isbn, new { @class="123" })
-    @Html.LabelFor(x => x.Checkout.LoanDate)
-    @Html.TextBoxFor(x => x.Checkout.LoanDate)
+    @Html.TextBoxFor(x => x.Book.Isbn, new { @class = "123" })
     @Html.LabelFor(x => x.Checkout.DueDate)
     @Html.TextBoxFor(x => x.Checkout.DueDate)
 

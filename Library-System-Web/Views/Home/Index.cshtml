@@ -8,21 +8,9 @@
         <h3>Welcome to the Library! Check out our featured books</h3>
     </div>
 </div>
-
-<div class="row">
-    @foreach (var book in Model.FeaturedBooks)
-    {
-        <div class="col-sm-3 py-3">
-            @await Html.PartialAsync("/Views/Books/_BookCard.cshtml", book)
-        </div>
-        @*<div class="col-3">
-                @if (!string.IsNullOrEmpty(book.ImagePath))
-                {
-                    <img src="@book.ImagePath" />
-                }
-                <a href="./Books/Details?ISBN=@book.Isbn">
-                    @book.Title
-                </a>
-            </div>*@
-    }
+<img id="searchgif" class="d-none" src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/200w.gif?cid=82a1493bxdvwuqc8pcid19k19wcqd45j5v8e932pcn0s9d06&rid=200w.gif&ct=g" />
+<div id="booklist">
+    @await Html.PartialAsync("/Views/Books/_BookResults.cshtml", Model.FeaturedBooks)
 </div>
+
+<button id="showFeaturedButton" class="btn btn-secondary d-none" onclick="SearchForBook(true)">Show Featured Books</button>

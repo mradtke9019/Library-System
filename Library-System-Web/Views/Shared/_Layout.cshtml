@@ -22,9 +22,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Browse</a>
                         </li>
                     </ul>
+                    <div class="d-flex">
+                        <input id="Searchbar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id="Searchbutton" class="btn btn-outline-success" type="button" onclick="SearchForBook()">Search</button>
+                    </div>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
