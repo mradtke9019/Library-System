@@ -1,0 +1,18 @@
+﻿@model Library_System_Web.ViewModels.Books.Details
+
+<div>
+    @if (Model.Book == null)
+    {
+        <p>No book found for ISBN</p>
+    }
+    else
+    {
+        <h2>@Model.Book.Title</h2>
+        if (!string.IsNullOrEmpty(Model.Book.ImagePath))
+        {
+            <img style="height:300px" src="@Model.Book.ImagePath" />
+        }
+        <p>@Model.Book.Summary</p>
+    }
+    <a class="btn btn-secondary" href="~/Checkouts?ISBN=@Model.ISBN">Checkout</a>
+</div>

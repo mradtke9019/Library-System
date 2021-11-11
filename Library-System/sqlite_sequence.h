@@ -8,7 +8,8 @@ private:
 public:
 	sqlite_sequence()
 	{
-	
+		name = "";
+		seq = "";
 	};
 	std::string Table() { return "sqlite_sequence"; }
 	std::string name;
@@ -19,7 +20,7 @@ public:
 	}
 	std::vector<std::string> Values()
 	{
-		return std::vector<std::string>({"'" + name + "'","'" + seq + "'"});
+		return std::vector<std::string>({name,seq});
 	}
 	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{

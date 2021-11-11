@@ -8,7 +8,11 @@ private:
 public:
 	Members()
 	{
-	
+		Id = 0;
+		Name = "";
+		Address = "";
+		Email = "";
+		Phone = "";
 	};
 	std::string Table() { return "Members"; }
 	int Id;
@@ -22,7 +26,7 @@ public:
 	}
 	std::vector<std::string> Values()
 	{
-		return std::vector<std::string>({std::to_string(Id),"'" + Name + "'","'" + Address + "'","'" + Email + "'","'" + Phone + "'"});
+		return std::vector<std::string>({std::to_string(Id),Name,Address,Email,Phone});
 	}
 	static int selectCallback(void* data, int argc, char** argv, char** azColName)
 	{

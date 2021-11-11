@@ -1,0 +1,16 @@
+﻿@model Book
+
+<div class="card">
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img src="@Model.ImagePath" class="card-img-top">
+    }
+    else
+    {
+        <img src="" class="card-img-top">
+    }
+    <div class="card-body">
+        <h5 class="card-title"><a href="./Books/Details?ISBN=@Model.Isbn">@Model.Title</a></h5>
+        <p class="card-text">@Model.Summary</p>
+    </div>
+</div>

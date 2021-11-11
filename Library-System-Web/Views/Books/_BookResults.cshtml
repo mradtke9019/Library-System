@@ -1,0 +1,12 @@
+﻿@model List<Book>
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-sm-3 py-3">
+                @await Html.PartialAsync("/Views/Books/_BookCard.cshtml", book)
+            </div>
+        }
+    </div>
+}

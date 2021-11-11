@@ -1,0 +1,16 @@
+﻿@model Library_System_Web.ViewModels.Checkouts.Index
+
+<h2>
+    Checkout
+</h2>
+
+<form asp-action="Add">
+    @Html.HiddenFor(model => model.Checkout.LoanDate)
+    @Html.LabelFor(x => x.Book.Isbn)
+    @Html.TextBoxFor(x => x.Book.Isbn, new { @class = "123" })
+    @Html.LabelFor(x => x.Checkout.DueDate)
+    @Html.TextBoxFor(x => x.Checkout.DueDate)
+
+
+    <button class="btn btn-secondary">Checkout</button>
+</form>

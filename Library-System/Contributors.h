@@ -8,7 +8,8 @@ private:
 public:
 	Contributors()
 	{
-	
+		BookISBN = 0;
+		AuthorId = 0;
 	};
 	std::string Table() { return "Contributors"; }
 	int BookISBN;
